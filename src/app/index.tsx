@@ -125,19 +125,19 @@ export default function Inicio() {
           <MiBoton
             titulo="Enviar correo"
             icono="mail-outline"
-            mensaje="Correo: AGREGA_TU_CORREO"
+            mensaje="Correo: jesusdavidvanegaslizalda"
           />
 
           <MiBoton
             titulo="Llamar"
             icono="call-outline"
-            mensaje="Teléfono: AGREGA_TU_TELEFONO"
+            mensaje="Teléfono: 3138636001"
           />
 
           <MiBoton
             titulo="LinkedIn"
             icono="logo-linkedin"
-            mensaje="Perfil de LinkedIn: AGREGA_TU_ENLACE"
+            mensaje="Perfil de LinkedIn: jeje"
           />
 
           <MiBoton
