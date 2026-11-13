@@ -1,98 +1,284 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
+
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import MiBoton from '../components/MiBoton';
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+export default function Inicio() {
+  const tecnologias = [
+    { nombre: 'Python', icono: 'logo-python' as const },
+    { nombre: 'JavaScript', icono: 'logo-javascript' as const },
+    { nombre: 'SQL', icono: 'server-outline' as const },
+    { nombre: 'React', icono: 'logo-react' as const },
+  ];
+
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+    <SafeAreaView style={styles.contenedor}>
+      <StatusBar style="dark" />
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.contenido}
+      >
+        {/* Encabezado */}
+        <View style={styles.encabezado}>
+          <Text style={styles.etiqueta}>
+            PORTAFOLIO PERSONAL
+          </Text>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
-
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
+          <Ionicons
+            name="person-circle-outline"
+            size={28}
+            color="#6D5AE6"
           />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+        </View>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+        {/* Perfil */}
+        <View style={styles.perfil}>
+          <View style={styles.avatar}>
+            <Text style={styles.iniciales}>JV</Text>
+          </View>
+
+          <Text style={styles.nombre}>
+            Jesús David Vanegas
+          </Text>
+
+          <Text style={styles.profesion}>
+            Desarrollador de Software
+          </Text>
+
+          <View style={styles.etiquetaFormacion}>
+            <Ionicons
+              name="school-outline"
+              size={16}
+              color="#6D5AE6"
+            />
+            <Text style={styles.textoFormacion}>
+              Aprendiz SENA - ADSO
+            </Text>
+          </View>
+        </View>
+
+        {/* Sobre mí */}
+        <View style={styles.seccion}>
+          <Text style={styles.tituloSeccion}>
+            Sobre mí
+          </Text>
+
+          <Text style={styles.descripcion}>
+            Soy técnico en Desarrollo de Software y
+            actualmente curso la Tecnología en Análisis
+            y Desarrollo de Software en el SENA.
+
+            {'\n\n'}
+
+            Me interesa la tecnología, la programación
+            y la resolución de problemas. Disfruto
+            desarrollando soluciones digitales y
+            mejorando la experiencia visual de las
+            aplicaciones. Mi objetivo es seguir creciendo
+            como desarrollador y fortalecer mis
+            conocimientos en desarrollo frontend y backend.
+          </Text>
+        </View>
+
+        {/* Tecnologías */}
+        <View style={styles.seccion}>
+          <Text style={styles.tituloSeccion}>
+            Tecnologías y conocimientos
+          </Text>
+
+          <View style={styles.listaTecnologias}>
+            {tecnologias.map((tecnologia) => (
+              <View
+                key={tecnologia.nombre}
+                style={styles.tarjetaTecnologia}
+              >
+                <Ionicons
+                  name={tecnologia.icono}
+                  size={22}
+                  color="#6D5AE6"
+                />
+
+                <Text style={styles.textoTecnologia}>
+                  {tecnologia.nombre}
+                </Text>
+              </View>
+            ))}
+          </View>
+        </View>
+
+        {/* Contacto */}
+        <View style={styles.seccion}>
+          <Text style={styles.tituloSeccion}>
+            Contacto
+          </Text>
+
+          <MiBoton
+            titulo="Enviar correo"
+            icono="mail-outline"
+            mensaje="Correo: AGREGA_TU_CORREO"
+          />
+
+          <MiBoton
+            titulo="Llamar"
+            icono="call-outline"
+            mensaje="Teléfono: AGREGA_TU_TELEFONO"
+          />
+
+          <MiBoton
+            titulo="LinkedIn"
+            icono="logo-linkedin"
+            mensaje="Perfil de LinkedIn: AGREGA_TU_ENLACE"
+          />
+
+          <MiBoton
+            titulo="GitHub"
+            icono="logo-github"
+            mensaje="Repositorio del proyecto: github.com/jesusvanegas871/JVMobile"
+          />
+        </View>
+
+        {/* Pie de página */}
+        <Text style={styles.pie}>
+          ProyectoJVMobile · 2026
+        </Text>
+
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  contenedor: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#F8FAFC',
+  },
+
+  contenido: {
+    padding: 22,
+    paddingBottom: 35,
+  },
+
+  encabezado: {
     flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
+    marginBottom: 30,
   },
-  heroSection: {
+
+  etiqueta: {
+    fontSize: 11,
+    fontWeight: 'bold',
+    letterSpacing: 2,
+    color: '#64748B',
+  },
+
+  perfil: {
+    alignItems: 'center',
+    marginBottom: 30,
+  },
+
+  avatar: {
+    width: 105,
+    height: 105,
+    borderRadius: 55,
+    backgroundColor: '#263B63',
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+    marginBottom: 18,
   },
-  title: {
+
+  iniciales: {
+    color: '#FFFFFF',
+    fontSize: 36,
+    fontWeight: 'bold',
+  },
+
+  nombre: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: '#1E293B',
     textAlign: 'center',
   },
-  code: {
-    textTransform: 'uppercase',
+
+  profesion: {
+    fontSize: 16,
+    color: '#64748B',
+    marginTop: 7,
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+
+  etiquetaFormacion: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#EDE9FE',
+    paddingHorizontal: 14,
+    paddingVertical: 9,
+    borderRadius: 20,
+    marginTop: 15,
+    gap: 7,
+  },
+
+  textoFormacion: {
+    color: '#6D5AE6',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+
+  seccion: {
+    marginBottom: 27,
+  },
+
+  tituloSeccion: {
+    fontSize: 19,
+    fontWeight: 'bold',
+    color: '#1E293B',
+    marginBottom: 13,
+  },
+
+  descripcion: {
+    fontSize: 14,
+    color: '#475569',
+    lineHeight: 23,
+    textAlign: 'justify',
+  },
+
+  listaTecnologias: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+  },
+
+  tarjetaTecnologia: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    padding: 13,
+    borderRadius: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    width: '48%',
+  },
+
+  textoTecnologia: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#334155',
+  },
+
+  pie: {
+    textAlign: 'center',
+    fontSize: 12,
+    color: '#94A3B8',
+    marginTop: 10,
   },
 });
